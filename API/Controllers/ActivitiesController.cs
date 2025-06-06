@@ -14,6 +14,12 @@ public class ActivitiesController : BaseApiController
     {
         return await Mediator.Send(new GetActivityList.Query());
     }
+    // [HttpGet]
+    // public async Task<ActionResult<List<Activity>>> GetActivities(CancellationToken ct)
+    // {
+    //     return await Mediator.Send(new GetActivityList.Query(), ct);
+    // }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Activity>> GetActivityDetail(string id)
     {
