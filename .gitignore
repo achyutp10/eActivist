@@ -60,3 +60,7 @@ project.fragment.lock.json
 *.tmp.dir
 ./App_Data
 *.mdf
+
+API/appsettings.json
+API/reactivities.dbAPI/reactivitirs.db-shm
+.gitignore
