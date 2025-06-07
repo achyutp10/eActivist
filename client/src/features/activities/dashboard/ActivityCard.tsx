@@ -17,9 +17,14 @@ import {
 type Props = {
   activity: Activity;
   selectActivity: (id: string) => void;
+  deleteActivity: (id: string) => void;
 };
 
-export default function ActivityCard({ activity, selectActivity }: Props) {
+export default function ActivityCard({
+  activity,
+  selectActivity,
+  deleteActivity,
+}: Props) {
   //   const label = activity.isHost ? "You are hosting" : "You are going";
   //   const color = activity.isHost
   //     ? "secondary"
@@ -95,16 +100,27 @@ export default function ActivityCard({ activity, selectActivity }: Props) {
       </CardContent>
       <CardContent sx={{ pb: 2 }}>
         <Typography variant="body2">{activity.description}</Typography>
-        <Button
-          //   component={Link}
-          //   to={`/activities/${activity.id}`}
-          onClick={() => selectActivity(activity.id)}
-          size="medium"
-          variant="contained"
-          sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
-        >
-          View
-        </Button>
+        <Box display="flex" gap={3}>
+          <Button
+            //   component={Link}
+            //   to={`/activities/${activity.id}`}
+            onClick={() => selectActivity(activity.id)}
+            size="medium"
+            variant="contained"
+            sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
+          >
+            View
+          </Button>
+          <Button
+            onClick={() => deleteActivity(activity.id)}
+            size="medium"
+            variant="contained"
+            color="error"
+            sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
+          >
+            Delete
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );

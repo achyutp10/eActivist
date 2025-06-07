@@ -8,10 +8,15 @@ import ActivityCard from "./ActivityCard";
 type Props = {
   activities: Activity[];
   selectActivity: (id: string) => void;
+  deleteActivity: (id: string) => void;
 };
 
 // const ActivityList = observer(function ActivityList() {
-export default function ActivityList({ activities, selectActivity }: Props) {
+export default function ActivityList({
+  activities,
+  selectActivity,
+  deleteActivity,
+}: Props) {
   //   const { activitiesGroup, isLoading, hasNextPage, fetchNextPage } =
   //     useActivities();
   //   const { ref, inView } = useInView({
@@ -43,6 +48,7 @@ export default function ActivityList({ activities, selectActivity }: Props) {
             key={activity.id}
             activity={activity}
             selectActivity={selectActivity}
+            deleteActivity={deleteActivity}
           />
         ))}
       </Box>
