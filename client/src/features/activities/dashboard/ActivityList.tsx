@@ -7,10 +7,11 @@ import ActivityCard from "./ActivityCard";
 
 type Props = {
   activities: Activity[];
+  selectActivity: (id: string) => void;
 };
 
 // const ActivityList = observer(function ActivityList() {
-export default function ActivityList({ activities }: Props) {
+export default function ActivityList({ activities, selectActivity }: Props) {
   //   const { activitiesGroup, isLoading, hasNextPage, fetchNextPage } =
   //     useActivities();
   //   const { ref, inView } = useInView({
@@ -38,7 +39,11 @@ export default function ActivityList({ activities }: Props) {
         gap={3}
       >
         {activities.map((activity) => (
-          <ActivityCard key={activity.id} activity={activity} />
+          <ActivityCard
+            key={activity.id}
+            activity={activity}
+            selectActivity={selectActivity}
+          />
         ))}
       </Box>
       {/* ))} */}

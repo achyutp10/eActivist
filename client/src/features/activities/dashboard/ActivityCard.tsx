@@ -16,9 +16,10 @@ import {
 
 type Props = {
   activity: Activity;
+  selectActivity: (id: string) => void;
 };
 
-export default function ActivityCard({ activity }: Props) {
+export default function ActivityCard({ activity, selectActivity }: Props) {
   //   const label = activity.isHost ? "You are hosting" : "You are going";
   //   const color = activity.isHost
   //     ? "secondary"
@@ -97,6 +98,7 @@ export default function ActivityCard({ activity }: Props) {
         <Button
           //   component={Link}
           //   to={`/activities/${activity.id}`}
+          onClick={() => selectActivity(activity.id)}
           size="medium"
           variant="contained"
           sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
