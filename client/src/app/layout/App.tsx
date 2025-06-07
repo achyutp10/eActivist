@@ -8,7 +8,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
-import ActivityDashboard from "../../features/activities/ActivityDashboard";
+import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -23,7 +23,7 @@ function App() {
     <>
       <CssBaseline />
       <NavBar />
-      <Container maxWidth="xl" sx={{ marginTop: 3 }}>
+      <Container maxWidth="xl" sx={{ mt: 3 }}>
         <ActivityDashboard activities={activities} />
       </Container>
     </>
