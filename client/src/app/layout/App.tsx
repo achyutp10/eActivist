@@ -1,4 +1,5 @@
 import {
+  Box,
   Container,
   CssBaseline,
   Typography,
@@ -65,7 +66,7 @@ function App() {
   };
 
   return (
-    <>
+    <Box sx={{ bgcolor: "#eeeeee", minHeight: "100vh" }}>
       <CssBaseline />
       <NavBar openForm={handleOpenForm} />
       <Container maxWidth="xl" sx={{ mt: 3 }}>
@@ -85,7 +86,7 @@ function App() {
           />
         )}
       </Container>
-    </>
+    </Box>
   );
 }
 
