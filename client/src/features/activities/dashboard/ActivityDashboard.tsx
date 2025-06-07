@@ -11,6 +11,7 @@ type Props = {
   openForm: (id: string) => void;
   closeForm: () => void;
   editMode: boolean;
+  submitForm: (acticity: Activity) => void;
 };
 
 export default function ActivityDashboard({
@@ -21,6 +22,7 @@ export default function ActivityDashboard({
   openForm,
   closeForm,
   editMode,
+  submitForm,
 }: Props) {
   return (
     <Box sx={{ bgcolor: "#eeeeee" }}>
@@ -40,7 +42,11 @@ export default function ActivityDashboard({
             />
           )}
           {editMode && (
-            <ActivityForm closeForm={closeForm} activity={selectedActivity} />
+            <ActivityForm
+              closeForm={closeForm}
+              activity={selectedActivity}
+              submitForm={submitForm}
+            />
           )}
         </Grid>
       </Grid>
