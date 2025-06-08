@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useActivities } from "../../../lib/hooks/useActivities";
+import { Link } from "react-router";
 // import { Link } from "react-router";
 // import { formatDate } from "../../../lib/util/util";
 // import AvatarPopover from "../../../app/shared/components/AvatarPopover";
@@ -98,9 +99,8 @@ export default function ActivityCard({ activity }: Props) {
         <Typography variant="body2">{activity.description}</Typography>
         <Box display="flex" gap={3}>
           <Button
-            //   component={Link}
-            //   to={`/activities/${activity.id}`}
-            onClick={() => {}}
+            component={Link}
+            to={`/activities/${activity.id}`}
             size="medium"
             variant="contained"
             sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
