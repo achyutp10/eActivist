@@ -1,17 +1,16 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ActivityCard from "./ActivityCard";
+import { useActivities } from "../../../lib/hooks/useActivities";
 // import { useActivities } from "../../../lib/hooks/useActivities";
 // import { useInView } from "react-intersection-observer";
 // import { useEffect } from "react";
 // import { observer } from "mobx-react-lite";
 
-type Props = {
-  activities: Activity[];
-  selectActivity: (id: string) => void;
-};
-
 // const ActivityList = observer(function ActivityList() {
-export default function ActivityList({ activities, selectActivity }: Props) {
+export default function ActivityList() {
+  const { activities, isPending } = useActivities();
+  if (!activities || isPending) return <Typography>Loading...</Typography>;
+
   //   const { activitiesGroup, isLoading, hasNextPage, fetchNextPage } =
   //     useActivities();
   //   const { ref, inView } = useInView({
@@ -39,11 +38,7 @@ export default function ActivityList({ activities, selectActivity }: Props) {
         gap={3}
       >
         {activities.map((activity) => (
-          <ActivityCard
-            key={activity.id}
-            activity={activity}
-            selectActivity={selectActivity}
-          />
+          <ActivityCard key={activity.id} activity={activity} />
         ))}
       </Box>
       {/* ))} */}

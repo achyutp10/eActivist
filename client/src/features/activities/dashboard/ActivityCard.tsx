@@ -17,10 +17,9 @@ import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
   activity: Activity;
-  selectActivity: (id: string) => void;
 };
 
-export default function ActivityCard({ activity, selectActivity }: Props) {
+export default function ActivityCard({ activity }: Props) {
   const { deleteActivity } = useActivities();
   //   const label = activity.isHost ? "You are hosting" : "You are going";
   //   const color = activity.isHost
@@ -101,7 +100,7 @@ export default function ActivityCard({ activity, selectActivity }: Props) {
           <Button
             //   component={Link}
             //   to={`/activities/${activity.id}`}
-            onClick={() => selectActivity(activity.id)}
+            onClick={() => {}}
             size="medium"
             variant="contained"
             sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
