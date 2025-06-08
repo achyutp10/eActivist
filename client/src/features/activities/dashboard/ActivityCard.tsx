@@ -10,6 +10,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import { useActivities } from "../../../lib/hooks/useActivities";
 // import { Link } from "react-router";
 // import { formatDate } from "../../../lib/util/util";
 // import AvatarPopover from "../../../app/shared/components/AvatarPopover";
@@ -17,14 +18,10 @@ import {
 type Props = {
   activity: Activity;
   selectActivity: (id: string) => void;
-  deleteActivity: (id: string) => void;
 };
 
-export default function ActivityCard({
-  activity,
-  selectActivity,
-  deleteActivity,
-}: Props) {
+export default function ActivityCard({ activity, selectActivity }: Props) {
+  const { deleteActivity } = useActivities();
   //   const label = activity.isHost ? "You are hosting" : "You are going";
   //   const color = activity.isHost
   //     ? "secondary"
@@ -112,10 +109,11 @@ export default function ActivityCard({
             View
           </Button>
           <Button
-            onClick={() => deleteActivity(activity.id)}
+            onClick={() => deleteActivity.mutate(activity.id)}
             size="medium"
             variant="contained"
             color="error"
+            disabled={deleteActivity.isPending}
             sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
           >
             Delete
