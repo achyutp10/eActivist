@@ -2,7 +2,6 @@ import { Group } from "@mui/icons-material";
 import {
   AppBar,
   Box,
-  Button,
   //   Button,
   Container,
   MenuItem,
@@ -11,6 +10,8 @@ import {
   Typography,
   //   Typography,
 } from "@mui/material";
+import { NavLink } from "react-router";
+import MenuItemLink from "../shared/components/MenuItemLink";
 // import Menu from "@mui/icons-material/Menu";
 
 export default function NavBar() {
@@ -26,7 +27,11 @@ export default function NavBar() {
         <Container maxWidth="xl">
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box>
-              <MenuItem sx={{ display: "flex", gap: 2 }}>
+              <MenuItem
+                component={NavLink}
+                to="/"
+                sx={{ display: "flex", gap: 2 }}
+              >
                 <Group fontSize="large" />
                 <Typography variant="h4" fontWeight="bold">
                   Reactivities
@@ -34,42 +39,10 @@ export default function NavBar() {
               </MenuItem>
             </Box>
             <Box sx={{ display: "flex" }}>
-              <MenuItem
-                sx={{
-                  fontSize: "1.2rem",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                }}
-              >
-                Activities
-              </MenuItem>
-              <MenuItem
-                sx={{
-                  fontSize: "1.2rem",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                }}
-              >
-                About
-              </MenuItem>
-              <MenuItem
-                sx={{
-                  fontSize: "1.2rem",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                }}
-              >
-                Contact
-              </MenuItem>
+              <MenuItemLink to="/activities">Activities</MenuItemLink>
+              <MenuItemLink to="/createActivity">Create Activity</MenuItemLink>
             </Box>
-            <Button
-              size="large"
-              variant="contained"
-              color="warning"
-              onClick={() => {}}
-            >
-              Create Activity
-            </Button>
+            <MenuItem>User Menu</MenuItem>
           </Toolbar>
         </Container>
       </AppBar>
