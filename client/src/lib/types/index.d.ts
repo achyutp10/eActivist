@@ -1,3 +1,14 @@
+type PagedList<T, TCursor> = {
+  items: T[];
+  nextCursor: TCursor;
+};
+
+type ResetPassword = {
+  email: string;
+  resetCode: string;
+  newPassword: string;
+};
+
 type Activity = {
   id: string;
   title: string;
@@ -9,9 +20,46 @@ type Activity = {
   venue: string;
   latitude: number;
   longitude: number;
+  attendees: Profile[];
+  isGoing: boolean;
+  isHost: boolean;
+  hostId: string;
+  hostDisplayName: string;
+  hostImageUrl?: string;
 };
 
-export type LocationIQSuggestion = {
+type Profile = {
+  id: string;
+  displayName: string;
+  bio?: string;
+  imageUrl?: string;
+  followersCount?: number;
+  followingCount?: number;
+  following?: boolean;
+};
+
+type Photo = {
+  id: string;
+  url: string;
+};
+
+type User = {
+  id: string;
+  email: string;
+  displayName: string;
+  imageUrl?: string;
+};
+
+type ChatComment = {
+  id: string;
+  createdAt: Date;
+  body: string;
+  userId: string;
+  displayName: string;
+  imageUrl?: string;
+};
+
+type LocationIQSuggestion = {
   place_id: string;
   osm_id: string;
   osm_type: string;
@@ -27,7 +75,7 @@ export type LocationIQSuggestion = {
   address: LocationIQAddress;
 };
 
-export type LocationIQAddress = {
+type LocationIQAddress = {
   name: string;
   house_number: string;
   road: string;
