@@ -3,7 +3,6 @@ import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import { formatDate } from "../../../lib/util/util";
 import { useState } from "react";
 import MapComponent from "../../../app/shared/components/MapComponent";
-import type { Activity } from "../../../lib/types";
 
 type Props = {
   activity: Activity;
