@@ -1,84 +1,56 @@
 import { Group } from "@mui/icons-material";
-import {
-  AppBar,
-  Box,
-  //   Button,
-  Container,
-  LinearProgress,
-  MenuItem,
-  //   IconButton,
-  Toolbar,
-  Typography,
-  //   Typography,
-} from "@mui/material";
 import { NavLink } from "react-router";
-import MenuItemLink from "../shared/components/MenuItemLink";
-import { useStore } from "../../lib/hooks/useStore";
 import { Observer } from "mobx-react-lite";
+import { useStore } from "../../lib/hooks/useStore";
 import { useAccount } from "../../lib/hooks/useAccount";
+import MenuItemLink from "../shared/components/MenuItemLink";
 import UserMenu from "./UserMenu";
-// import Menu from "@mui/icons-material/Menu";
 
 export default function NavBar() {
   const { uiStore } = useStore();
   const { currentUser } = useAccount();
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{
-          backgroundImage:
-            "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%)",
-          position: "relative",
-        }}
-      >
-        <Container maxWidth="xl">
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box>
-              <MenuItem
-                component={NavLink}
-                to="/"
-                sx={{ display: "flex", gap: 2 }}
-              >
-                <Group fontSize="large" />
-                <Typography variant="h4" fontWeight="bold">
-                  Reactivities
-                </Typography>
-              </MenuItem>
-            </Box>
-            <Box sx={{ display: "flex" }}>
-              <MenuItemLink to="/activities">Activities</MenuItemLink>
-              <MenuItemLink to="/errors">Test Error</MenuItemLink>
-            </Box>
-            <Box display="flex" alignItems="center">
-              {currentUser ? (
-                <UserMenu />
-              ) : (
-                <>
-                  <MenuItemLink to="/login">Login</MenuItemLink>
-                  <MenuItemLink to="/register">Register</MenuItemLink>
-                </>
-              )}
-            </Box>
-          </Toolbar>
-        </Container>
-        <Observer>
-          {() =>
-            uiStore.isLoading ? (
-              <LinearProgress
-                color="secondary"
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: 4,
-                }}
-              />
-            ) : null
-          }
-        </Observer>
-      </AppBar>
-    </Box>
+    <div className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#182a73] via-[#218aae] to-[#20a7ac]">
+      <div className="max-w-screen-xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo and title */}
+          <NavLink to="/" className="flex items-center gap-2 text-white">
+            <Group fontSize="large" />
+            <div className="relative">
+              <h1 className="text-2xl font-bold">Reactivities</h1>
+              <Observer>
+                {() =>
+                  uiStore.isLoading ? (
+                    <div className="absolute -right-6 top-1.5">
+                      <div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin" />
+                    </div>
+                  ) : null
+                }
+              </Observer>
+            </div>
+          </NavLink>
+
+          {/* Navigation links */}
+          <div className="flex gap-4 text-white">
+            <MenuItemLink to="/activities">Activities</MenuItemLink>
+            <MenuItemLink to="/counter">Counter</MenuItemLink>
+            <MenuItemLink to="/errors">Errors</MenuItemLink>
+          </div>
+
+          {/* User menu or auth links */}
+          <div className="flex items-center text-white">
+            {currentUser ? (
+              <UserMenu />
+            ) : (
+              <>
+                <MenuItemLink to="/login">Login</MenuItemLink>
+                <MenuItemLink to="/register">Register</MenuItemLink>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

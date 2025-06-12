@@ -1,89 +1,80 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import { useAccount } from "../../lib/hooks/useAccount";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
-import { Add, Logout, Password, Person } from "@mui/icons-material";
+import { useAccount } from "../../lib/hooks/useAccount";
+import { FaPlus, FaUser, FaKey, FaSignOutAlt } from "react-icons/fa";
 
 export default function UserMenu() {
   const { currentUser, logoutUser } = useAccount();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const toggleMenu = () => setOpen(!open);
+  const closeMenu = () => setOpen(false);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <>
-      <Button
-        onClick={handleClick}
-        color="inherit"
-        size="large"
-        sx={{ fontSize: "1.1rem" }}
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={toggleMenu}
+        className="flex items-center gap-2 text-white text-base hover:underline focus:outline-none"
       >
-        <Box display="flex" alignItems="center" gap={2}>
-          <Avatar src={currentUser?.imageUrl} alt="current user image" />
-          {currentUser?.displayName}
-        </Box>
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem component={Link} to="/createActivity" onClick={handleClose}>
-          <ListItemIcon>
-            <Add />
-          </ListItemIcon>
-          <ListItemText>Create Activity</ListItemText>
-        </MenuItem>
-        <MenuItem
-          component={Link}
-          to={`/profiles/${currentUser?.id}`}
-          onClick={handleClose}
-        >
-          <ListItemIcon>
-            <Person />
-          </ListItemIcon>
-          <ListItemText>My profile</ListItemText>
-        </MenuItem>
-        <MenuItem component={Link} to="/change-password" onClick={handleClose}>
-          <ListItemIcon>
-            <Password />
-          </ListItemIcon>
-          <ListItemText>Change password</ListItemText>
-        </MenuItem>
-        <Divider />
-        <MenuItem
-          onClick={() => {
-            logoutUser.mutate();
-            handleClose();
-          }}
-        >
-          <ListItemIcon>
-            <Logout />
-          </ListItemIcon>
-          <ListItemText>Logout</ListItemText>
-        </MenuItem>
-      </Menu>
-    </>
+        <img
+          src={currentUser?.imageUrl}
+          alt="user avatar"
+          className="w-8 h-8 rounded-full object-cover"
+        />
+        {currentUser?.displayName}
+      </button>
+
+      {open && (
+        <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+          <div className="py-1 text-gray-700">
+            <Link
+              to="/createActivity"
+              className="flex items-center px-4 py-2 hover:bg-gray-100"
+              onClick={closeMenu}
+            >
+              <FaPlus className="mr-2" /> Create Activity
+            </Link>
+            <Link
+              to={`/profiles/${currentUser?.id}`}
+              className="flex items-center px-4 py-2 hover:bg-gray-100"
+              onClick={closeMenu}
+            >
+              <FaUser className="mr-2" /> My Profile
+            </Link>
+            <Link
+              to="/change-password"
+              className="flex items-center px-4 py-2 hover:bg-gray-100"
+              onClick={closeMenu}
+            >
+              <FaKey className="mr-2" /> Change Password
+            </Link>
+            <hr className="my-1" />
+            <button
+              onClick={() => {
+                logoutUser.mutate();
+                closeMenu();
+              }}
+              className="w-full flex items-center px-4 py-2 text-left hover:bg-gray-100"
+            >
+              <FaSignOutAlt className="mr-2" /> Logout
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
