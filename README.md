@@ -32,23 +32,26 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/achyutp10/eActivist.git
+  git clone https://github.com/achyutp10/eActivist.git  
 ```
 
 ### 2. Setup Backend (API)
 
 ```bash
-cd eActivist
-cd API
-dotnet ef database update    # Apply migrations
-dotnet run                   # Start the Web API
+  cd eActivist
+  dotnet ef database update -p Persistence -s API    # Apply migrations
+  cd API
+  dotnet watch                   # Start the Web API
 ```
 
 ### 3. Setup Frontend (React)
 
 ```bash
-cd client
-npm install
-npm run dev
+  cd client
+  npm install
+  npm run dev
 ```
-
+```bash
+  Frontend will run at:
+  🌐 http://localhost:3000
+```
